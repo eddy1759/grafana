@@ -1,0 +1,16 @@
+server:
+  log_level: info
+
+metrics:
+  global:
+    scrape_interval: 60s
+  scrape_configs:
+    - job_name: 'crosssafeapp'
+      metrics_path: /metrics
+      static_configs:
+        - targets: ['https://api.crosssafeapp.com']  # Replace with your Heroku app URL
+  remote_write:
+    - url: https://prometheus-prod-13-prod-us-east-0.grafana.net/api/prom/push
+      basic_auth:
+        username: ${GRAFANA_USERNAME}  # Your Grafana Cloud account ID
+        password: ${GRAFANA_PASSWORD}  # Your Grafana Cloud API Key
