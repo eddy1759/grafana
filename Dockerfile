@@ -11,8 +11,8 @@ RUN dpkg -i /tmp/grafana-agent.deb
 # Create a directory for the configuration file
 RUN mkdir -p /etc/grafana-agent
 
-# Copy your configuration file into the image
-COPY agent-config.yaml /etc/grafana-agent/agent-config.yaml
+# Copy your configuration file into the image if it exists, otherwise create a default one
+COPY agent-config.yaml /etc/grafana-agent/agent-config.yaml || echo "server:\n  log_level: info" > /etc/grafana-agent/agent-config.yaml
 
 # Set the correct permissions
 RUN chmod 755 /usr/bin/grafana-agent
@@ -24,4 +24,3 @@ USER nobody
 # Set the entrypoint
 ENTRYPOINT ["/usr/bin/grafana-agent"]
 CMD ["--config.file=/etc/grafana-agent/agent-config.yaml"]
-
