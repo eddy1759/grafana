@@ -1,9 +1,3 @@
-# Use a base Ubuntu image
-FROM ubuntu:20.04
-
-# Install necessary dependencies
-RUN apt-get update && apt-get install -y wget
-
 # Download and install Grafana Agent
 RUN wget -q -O /tmp/grafana-agent.deb https://github.com/grafana/agent/releases/latest/download/grafana-agent-amd64.deb
 RUN dpkg -i /tmp/grafana-agent.deb
